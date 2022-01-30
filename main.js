@@ -97,10 +97,10 @@ async function deleteDurableObject(e) {
 
   const json = await res.json();
   if (!res.ok || !json.success) {
-    if (json.error) {
+    if (json.cfError) {
+      error(`[CF Error] ${json.cfError.message}`);
+    } else if (json.error) {
       error(json.error);
-    } else if (json.cfError) {
-      error(json.cfError);
     } else {
       error(json.errors[0]);
     }
