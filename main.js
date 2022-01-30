@@ -19,13 +19,48 @@ document.getElementById('fetch').addEventListener('click', async () => {
   });
 
   const json = await res.json();
-  if (!res.ok) {
-    error(json.error);
+  if (!res.ok || !json.success) {
+    if (json.error) {
+      error(json.error);
+    } else {
+      error(json.errors[0]);
+    }
     return;
   }
 
-  console.log(json);
+  for (const durableObject of json.result) {
+    const tr = document.createElement('tr');
+    
+    const classTd = document.createElement('td');
+    classTd.innerText = durableObject.class;
+  
+    const nameTd = document.createElement('td');
+    nameTd.innerText = durableObject.name;
+
+    const scriptTd = document.createElement('td');
+    scriptTd.innerText = durableObject.script;
+
+    const idTd = document.createElement('td');
+    idTd.innerText = durableObject.id;
+
+    const actionTd = document.createElement('td');
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Delete';
+    deleteButton.id = durableObject.id;
+    deleteButton.addEventListener('click', deleteDurableObject);
+    actionTd.appendChild(deleteButton);
+
+    tr.appendChild(classTd);
+    tr.appendChild(nameTd);
+    tr.appendChild(scriptTd);
+    tr.appendChild(idTd);
+    tr.appendChild(actionTd);
+  }
 });
+
+async function deleteDurableObject(e) {
+  console.log(e);
+}
 
 function error(msg) {
   const element = document.getElementById('message');
