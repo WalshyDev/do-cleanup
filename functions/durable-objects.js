@@ -48,7 +48,7 @@ export async function onRequestDelete(ctx) {
   const authKey = request.headers.get('x-auth-key');
   const namespace = request.headers.get('x-namespace');
 
-  const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/durable_objects/namespaces/${namespace}" `, {
+  const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/durable_objects/namespaces/${namespace}`, {
     method: 'DELETE',
     headers: {
       'X-Auth-Email': authEmail,

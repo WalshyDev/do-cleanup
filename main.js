@@ -95,9 +95,6 @@ async function deleteDurableObject(e) {
     }
   });
 
-  console.log(target);
-  console.log(target.parent);
-
   const json = await res.json();
   if (!res.ok || !json.success) {
     if (json.error) {
@@ -111,6 +108,8 @@ async function deleteDurableObject(e) {
   }
 
   info('Deleted!');
+
+  target.remove();
 }
 
 function error(msg) {
