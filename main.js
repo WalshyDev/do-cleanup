@@ -28,6 +28,8 @@ document.getElementById('fetch').addEventListener('click', async () => {
     return;
   }
 
+  info('');
+
   const table = document.getElementById('do-table');
 
   for (const durableObject of json.result) {
@@ -63,7 +65,44 @@ document.getElementById('fetch').addEventListener('click', async () => {
 });
 
 async function deleteDurableObject(e) {
-  console.log(e);
+  const target = e.target;
+
+  if (target.className !== 'delete') {
+    target.className = 'delete';
+    return;
+  }
+
+  const accountEmail = document.getElementById('accountEmail').value;
+  const accountKey = document.getElementById('accountKey').value;
+  const accountId = document.getElementById('accountId').value;
+  const namespace = target.id;
+
+  if (!accountEmail || !accountKey || !accountId) {
+    error('Please enter your account email, key, and account ID');
+    return;
+  }
+
+  info(`Deleting DO - ${namespace}`);
+
+  const res = await fetch('/durable-objects', {
+    headers: {
+      'X-Auth-Email': accountEmail,
+      'X-Auth-Key': accountKey,
+      'X-Account-Id': accountId,
+    }
+  });
+
+  const json = await res.json();
+  if (!res.ok || !json.success) {
+    if (json.error) {
+      error(json.error);
+    } else {
+      error(json.errors[0]);
+    }
+    return;
+  }
+
+  info('Deleted!');
 }
 
 function error(msg) {
