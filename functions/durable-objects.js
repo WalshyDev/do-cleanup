@@ -10,7 +10,8 @@ export function onRequestOptions() {
 }
 
 // GET is for getting DOs
-export async function onRequestGet(request) {
+export async function onRequestGet(ctx) {
+  const { request } = ctx;
   const accountId = request.headers.get('x-account-id');
   const authEmail = request.headers.get('x-auth-email');
   const authKey = request.headers.get('x-auth-key');
@@ -36,7 +37,8 @@ export async function onRequestGet(request) {
 }
 
 // POST is for deleting DOs
-export async function onRequestDelete(request) {
+export async function onRequestDelete(ctx) {
+  const { request } = ctx;
   const accountId = request.headers.get('x-account-id');
   const authEmail = request.headers.get('x-auth-email');
   const authKey = request.headers.get('x-auth-key');
