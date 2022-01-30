@@ -25,7 +25,11 @@ export async function onRequestGet(ctx) {
   });
 
   if (res.ok) {
-    return res.json();
+    return new Response(JSON.stringify(await res.json()), {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
   } else {
     return new Response(JSON.stringify({ error: 'Failed to get DOs from CF API - ' + res.status }), {
       status: res.status,
