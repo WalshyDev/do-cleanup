@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Workers DO Cleanup</title>
+
+        <style>
+            .error {
+                color: red;
+            }
+            .delete {
+                background-color: red;
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <label>Account Email</label>
+            <input type="text" id="accountEmail" name="accountEmail" />
+        </div>
+        <div>
+            <label>API Key (<a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank">Found here</a>)</label>
+            <input type="password" id="accountKey" name="accountKey" />
+        </div>
+
+        <div>
+            <label>Account ID</label>
+            <input type="text" id="accountId" name="accountId" />
+        </div>
+
+        <button id="fetch">Fetch Durable Objects</button>
+
+        <div>
+            <span id="message"></span>
+        </div>
+
+        <table id="do-table">
+            <tr>
+                <th>Class</th>
+                <th>Name</th>
+                <th>Script</th>
+                <th>Environment</th>
+                <th>ID</th>
+                <th>Action</th>
+            </tr>
+        </table>
+        
+        <script src="main.js"></script>
+    </body>
+</html>
