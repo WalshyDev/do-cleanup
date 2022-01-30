@@ -28,6 +28,8 @@ document.getElementById('fetch').addEventListener('click', async () => {
     return;
   }
 
+  const table = document.getElementById('do-table');
+
   for (const durableObject of json.result) {
     const tr = document.createElement('tr');
     
@@ -55,6 +57,8 @@ document.getElementById('fetch').addEventListener('click', async () => {
     tr.appendChild(scriptTd);
     tr.appendChild(idTd);
     tr.appendChild(actionTd);
+
+    table.appendChild(tr);
   }
 });
 
