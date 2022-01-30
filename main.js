@@ -69,6 +69,7 @@ async function deleteDurableObject(e) {
 
   if (target.className !== 'delete') {
     target.className = 'delete';
+    target.innerText = 'Confirm?';
     return;
   }
 
@@ -85,10 +86,12 @@ async function deleteDurableObject(e) {
   info(`Deleting DO - ${namespace}`);
 
   const res = await fetch('/durable-objects', {
+    method: 'DELETE',
     headers: {
       'X-Auth-Email': accountEmail,
       'X-Auth-Key': accountKey,
       'X-Account-Id': accountId,
+      'X-Namespace': namespace,
     }
   });
 
@@ -103,6 +106,9 @@ async function deleteDurableObject(e) {
   }
 
   info('Deleted!');
+
+  console.log(target);
+  console.log(target.parent);
 }
 
 function error(msg) {
