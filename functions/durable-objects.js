@@ -57,9 +57,14 @@ export async function onRequestDelete(ctx) {
   });
 
   if (res.ok) {
-    return res.json();
+    return new Response(undefined);
   } else {
-    return new Response(JSON.stringify({ error: 'Failed to delete DO from CF API - ' + res.status }), {
+    const json = await res.json();
+
+    return new Response(JSON.stringify({
+      error: 'Failed to delete DO from CF API - ' + res.status,
+      cfError: json.errors.length > 0 ? json.errors[0] : '',
+    }), {
       status: res.status,
       headers: {
         'Content-Type': 'application/json',

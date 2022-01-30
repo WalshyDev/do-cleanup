@@ -95,10 +95,15 @@ async function deleteDurableObject(e) {
     }
   });
 
+  console.log(target);
+  console.log(target.parent);
+
   const json = await res.json();
   if (!res.ok || !json.success) {
     if (json.error) {
       error(json.error);
+    } else if (json.cfError) {
+      error(json.cfError);
     } else {
       error(json.errors[0]);
     }
@@ -106,9 +111,6 @@ async function deleteDurableObject(e) {
   }
 
   info('Deleted!');
-
-  console.log(target);
-  console.log(target.parent);
 }
 
 function error(msg) {
